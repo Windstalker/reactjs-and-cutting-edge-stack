@@ -7,7 +7,7 @@ export default class Search extends Component {
         onSubmit: PropTypes.func
     };
 
-    static defaultTypes = {
+    static defaultProps = {
         onSubmit: emptyFunction
     };
 
