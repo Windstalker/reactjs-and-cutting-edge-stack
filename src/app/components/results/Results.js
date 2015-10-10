@@ -19,11 +19,14 @@ export default class Results extends Component {
         return (
             <ul>
                 {
-                    results
-                    //results.map((result) => {
-                    //    <Result
-                    //        url={result} />
-                    //});
+                    results.map(( { html_url, owner: {login}, name } ) => {
+                        return <li key={name + '/' + login}>
+                            <Result
+                                url={html_url}
+                                authorName={login}
+                                name={name} />
+                        </li>
+                    })
                 }
             </ul>
         );
