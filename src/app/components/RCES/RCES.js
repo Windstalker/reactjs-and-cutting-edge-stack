@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Search from 'components/search/Search';
 import Results from 'components/results/Results';
-import { search as gitHubSearch } from 'utils/GITHUBAPIUtils';
+import { search as gitHubSearch } from 'actions/SearchAction';
+import SearchResultsStore from 'stores/SearchResultsStore';
 
 export default class RCES extends Component {
 
@@ -9,14 +10,24 @@ export default class RCES extends Component {
         results: []
     };
 
-    onSearch = async (term) => {
-        const results = await gitHubSearch(term);
+    componentDidMount() {
+        SearchResultsStore.addChangeEventHandler(this.onStoresChange)
+    }
 
-        console.log(results);
+    componentWillUnmount() {
+        SearchResultsStore.removeChangeEventHandler(this.onStoresChange)
+    }
 
-        this.setState({
-            results
-        });
+    onStoresChange = () => this.setState({ results: SearchResultsStore.getResults() });
+
+    onSearch = (term) => {
+        gitHubSearch(term);
+
+        //console.log(results);
+        //
+        //this.setState({
+        //    results
+        //});
     };
 
     render() {
