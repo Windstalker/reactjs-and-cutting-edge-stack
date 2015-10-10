@@ -20,7 +20,8 @@ export default class Results extends Component {
             <ul>
                 {
                     results.map(( { html_url, owner: {login}, name } ) => {
-                        return <li key={name + '/' + login}>
+                        let key = name + '/' + login;
+                        return <li key={key}>
                             <Result
                                 url={html_url}
                                 authorName={login}
